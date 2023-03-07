@@ -1,8 +1,6 @@
 import logging
-from typing import List
 
 import mysql.connector
-from mysql.connector.types import RowType
 
 from DbUtils.interfaces.IDbSource import IDbSource
 
@@ -27,7 +25,7 @@ class DbSourceMySql(IDbSource):
             logging.error(f"QueryExecutionException in returnCount: {te}")
             raise te
 
-    def returnQueryContent(self, query) -> List[RowType]:
+    def returnQueryContent(self, query):
         try:
             count_cursor = self.db_source.cursor()
             count_cursor.execute(query)

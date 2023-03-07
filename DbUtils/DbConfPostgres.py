@@ -9,14 +9,12 @@ from DbUtils.interfaces.IDbConf import IDbConf
 
 class DbConfPostgres(IDbConf):
 
-    def __init__(self):
-        self.config = configparser.ConfigParser()
-        self.config.read('config.ini')
+    def __init__(self, config):
         self.db_config = psycopg2.connect(
-            host=self.config['CONFIG']['db_host'],
-            user=self.config['CONFIG']['db_user'],
-            password=self.config['CONFIG']['db_password'],
-            database=self.config['CONFIG']['db_name']
+            host=config['CONFIG']['db_host'],
+            user=config['CONFIG']['db_user'],
+            password=config['CONFIG']['db_password'],
+            database=config['CONFIG']['db_name']
         )
 
     def getCountQuery(self, table):
