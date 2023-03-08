@@ -27,9 +27,9 @@ class DbSourceMySql(IDbSource):
 
     def returnQueryContent(self, query):
         try:
-            count_cursor = self.db_source.cursor()
-            count_cursor.execute(query)
-            return count_cursor.fetchall()
+            content_cursor = self.db_source.cursor()
+            content_cursor.execute(query)
+            return content_cursor.fetchall()
         except TimeoutError as te:
-            logging.error(f"QueryExecutionException in returnQueryContent: {te}")
+            logging.error(f"DbSourceMySql - QueryExecutionException in returnQueryContent: {te}")
             raise te

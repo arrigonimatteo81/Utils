@@ -10,3 +10,6 @@ class DbSourceSqlServer(IDbSource):
 
     def returnCount(self, query_count):
         pass
+
+    def returnQueryContent(self, query_content):
+        pass

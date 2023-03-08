@@ -1,11 +1,9 @@
-import configparser
-import json
-
-import psycopg2
 import logging
 
-from DbUtils.interfaces.IDbConf import IDbConf
+import psycopg2
 
+from DbUtils.interfaces.IDbConf import IDbConf
+import json
 
 class DbConfPostgres(IDbConf):
 
