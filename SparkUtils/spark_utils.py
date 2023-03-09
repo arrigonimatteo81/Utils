@@ -80,3 +80,7 @@ def get_max_data_va(df_source):
         return df_source.agg(max(col(DATA_VA))).first()[f"max({DATA_VA})"]
     except Exception as e:
         raise e
+
+
+def empty_dataframe():
+    return spark_session.createDataFrame(spark_session.sparkContext.emptyRDD())
