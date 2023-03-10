@@ -84,3 +84,7 @@ def get_max_data_va(df_source):
 
 def empty_dataframe():
     return spark_session.createDataFrame(spark_session.sparkContext.emptyRDD())
+
+
+def create_dataframe(base, schema):
+    return spark_session.createDataFrame(base, schema)
