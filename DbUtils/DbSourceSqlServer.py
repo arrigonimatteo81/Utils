@@ -13,3 +13,6 @@ class DbSourceSqlServer(IDbSource):
 
     def returnQueryContent(self, query_content):
         pass
+
+    def closeConnection(self):
+        pass

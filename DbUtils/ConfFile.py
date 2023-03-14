@@ -3,6 +3,9 @@ from DbUtils.interfaces.IDbConf import IDbConf
 
 class ConfFile(IDbConf):
 
+    def closeConnection(self):
+        pass
+
     def __init__(self, config):
         self.config = config
 
