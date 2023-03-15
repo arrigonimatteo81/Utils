@@ -31,6 +31,6 @@ class IDbConf(ABC):
     def getSourceParameters(self, table) -> dict:
         pass
 
-    @abstractmethod
-    def closeConnection(self):
-        pass
+    #@abstractmethod
+    #def closeConnection(self):
+    #    pass

@@ -11,6 +11,6 @@ class IDbSource(ABC):
     def returnQueryContent(self, query_content):
         pass
 
-    @abstractmethod
-    def closeConnection(self):
-        pass
+    #@abstractmethod
+    #def closeConnection(self):
+    #    pass

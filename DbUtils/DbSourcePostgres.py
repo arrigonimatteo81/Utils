@@ -10,24 +10,25 @@ class DbSourcePostgres(IDbSource):
         pass
 
     def __init__(self, config):
-        self.db_source = psycopg2.connect(
-            host=config['CONFIG']['db_host'],
-            user=config['CONFIG']['db_user'],
-            password=config['CONFIG']['db_password'],
-            database=config['CONFIG']['db_name']
-        )
+        self.config = config
 
     def returnQueryContent(self, query):
-        query_cursor = self.db_source.cursor()
-        try:
-            query_cursor.execute(query)
-            return query_cursor.fetchall()
-        except TimeoutError as te:
-            logging.error(f"DbConfPostgres - QueryExecutionException in returnQueryContent: {te}")
-            raise te
-        finally:
-            query_cursor.close()
+        with psycopg2.connect(
+                host=self.config['CONFIG']['db_host'],
+                user=self.config['CONFIG']['db_user'],
+                password=self.config['CONFIG']['db_password'],
+                database=self.config['CONFIG']['db_name']
+        ) as db_source:
+            query_cursor = db_source.cursor()
+            try:
+                query_cursor.execute(query)
+                return query_cursor.fetchall()
+            except TimeoutError as te:
+                logging.error(f"DbConfPostgres - QueryExecutionException in returnQueryContent: {te}")
+                raise te
+            finally:
+                query_cursor.close()
 
-    def closeConnection(self):
-        if self.db_source.closed == 0:
-            self.db_source.close()
+    #def closeConnection(self):
+    #    if self.db_source.closed == 0:
+    #        self.db_source.close()
