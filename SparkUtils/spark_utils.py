@@ -4,7 +4,7 @@ import logging
 from pyspark.sql.functions import col, max
 from pyspark.sql.utils import QueryExecutionException, AnalysisException, PythonException
 
-from constants import ROW_N, DATA_VA
+from constants import ROW_N, DATA_VA, PARTITION_FIELD
 
 spark_session = SparkSession.builder.config("spark.jars",
                                             "/home/testspark/Layer_gestionale/config/jar/mysql-connector-j-8.0.32.jar").getOrCreate()
@@ -43,7 +43,7 @@ def read_data_from_source(source, query_ingestion, elements_count, num_partition
         raise te
 
 
-def write_data_to_target(df_source, table):
+def write_data_to_target(df_source, table, process_id):
     try:
         df_source \
             .drop(ROW_N) \
@@ -59,11 +59,17 @@ def write_data_to_target(df_source, table):
 
         # .partitionBy(PARTITION_FIELD) \
 
-        ##TODO scrittura dataframe su tabella bigquery
+
+        #TODO scrittura dataframe in formato parquet per inserire dati in external table partizionata
+
         # df_source \
         #    .drop(ROW_N) \
         #    .write \
-        #    .format("bigquery") \
+        #    .parquet(f"gs://{table}/{PARTITION_FIELD}={process_id}"
+        #    .format("parquet") \
+        #    .mode("overwrite")
+
+        #TODO eliminare
         #    .option("table", table) \
         #    .option("temporaryGcsBucket",f"{table}_temporary_bucket") \
         #    .partitionBy(PARTITION_FIELD) \
