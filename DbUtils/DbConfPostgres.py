@@ -155,6 +155,3 @@ class DbConfPostgres(IDbConf):
             finally:
                 curs.close()
 
-    #def closeConnection(self):
-    #    if self.db_config.closed == 0:
-    #        self.db_config.close()
