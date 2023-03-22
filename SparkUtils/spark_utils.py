@@ -54,27 +54,14 @@ def write_data_to_target(df_source, table, process_id):
             .option("dbtable", table) \
             .option("user", "teo") \
             .option("password", "Matteo1981") \
+            .option("table", table) \
+            .option("temporaryGcsBucket",f"{table}_temporary_bucket") \
+            .partitionBy(PARTITION_FIELD) \
             .mode("append") \
             .save()
 
         # .partitionBy(PARTITION_FIELD) \
 
-
-        #TODO scrittura dataframe in formato parquet per inserire dati in external table partizionata
-
-        # df_source \
-        #    .drop(ROW_N) \
-        #    .write \
-        #    .parquet(f"gs://{table}/{PARTITION_FIELD}={process_id}"
-        #    .format("parquet") \
-        #    .mode("overwrite")
-
-        #TODO eliminare
-        #    .option("table", table) \
-        #    .option("temporaryGcsBucket",f"{table}_temporary_bucket") \
-        #    .partitionBy(PARTITION_FIELD) \
-        #    .mode("append") \
-        #    .save()
 
     except Exception as e:
         logging.error(f"Exception in write_data_to_target: {e}")
